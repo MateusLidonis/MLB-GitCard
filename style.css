@@ -1,0 +1,61 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body * {
+  font-family: "Poppins", sans-serif;
+}
+
+.container {
+  border: solid 5px blue;
+}
+
+.card-container {
+  border: solid 5px red;
+}
+
+.card {
+  border: solid 5px green;
+}
+
+.profile {
+  /*Imagem*/
+  border: solid 5px yellow;
+}
+
+.infos {
+  border: solid 5px darkviolet;
+}
+
+.followers {
+  /*Seguidores*/
+  border: solid 5px yellow;
+}
+
+.following {
+  /*Seguindo*/
+  border: solid 5px yellow;
+}
+
+.repositories {
+  /*Repositórios*/
+  border: solid 5px yellow;
+}
+
+.work {
+  /*Empresa*/
+  border: solid 5px yellow;
+}
+
+.city {
+  /*Cidade*/
+  border: solid 5px yellow;
+}
+
+.container-button {
+  border: solid 5px greenyellow;
+}

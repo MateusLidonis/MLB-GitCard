@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MLB GitCard</title>
+
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="card-container">
+        <span>Compartilhe seu GitCard</span>
+
+        <div class="card">
+          <header>
+            <span class="username" id="userLogin">...</span>
+          </header>
+
+          <section class="profile">
+            <img src="" id="userImage" alt="foto de perfil" />
+          </section>
+
+          <section class="infos">
+            <div class="followers">
+              <span id="userFollowers">...</span>
+            </div>
+
+            <div class="following">
+              <span id="userFollowing">...</span>
+            </div>
+
+            <div class="repositories">
+              <span id="userRepositories">...</span>
+            </div>
+
+            <div class="work">
+              <span id="userCompany">...</span>
+            </div>
+
+            <div class="city">
+              <span id="userLocation">...</span>
+            </div>
+          </section>
+
+          <footer>
+            <img src="./assets/logo.png" alt="" />
+
+            <span>MLB GitCard</span>
+          </footer>
+        </div>
+      </div>
+
+      <div class="container-button">
+        <div class="button" onclick="newCard()">
+          <button>Gerar meu GitCard</button>
+        </div>
+      </div>
+    </div>
+  </body>
+
+  <script src="./main.js"></script>
+</html>
