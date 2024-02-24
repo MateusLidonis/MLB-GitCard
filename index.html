@@ -14,7 +14,7 @@
       <div class="card-container">
         <span>Compartilhe seu GitCard</span>
 
-        <div class="card">
+        <div class="card" id="card">
           <header>
             <span class="username" id="userLogin">...</span>
           </header>
@@ -25,22 +25,27 @@
 
           <section class="infos">
             <div class="followers">
+              <img src="./assets/followers.png" />
               <span id="userFollowers">...</span>
             </div>
 
             <div class="following">
+              <img src="./assets/followers.png" />
               <span id="userFollowing">...</span>
             </div>
 
             <div class="repositories">
+              <img src="./assets/repository.png" />
               <span id="userRepositories">...</span>
             </div>
 
             <div class="work">
+              <img src="./assets/company.png" />
               <span id="userCompany">...</span>
             </div>
 
             <div class="city">
+              <img src="./assets/local.png" />
               <span id="userLocation">...</span>
             </div>
           </section>
@@ -53,13 +58,35 @@
         </div>
       </div>
 
-      <div class="container-button">
+      <div class="container-customize">
         <div class="button" onclick="newCard()">
           <button>Gerar meu GitCard</button>
         </div>
+        <div class="borda">
+          <span>Cor da borda:</span>
+          <input data-jscolor="" value="8257E5" id="input-profile" />
+        </div>
+        <div class="fundo">
+          <span>Cor do fundo:</span>
+          <input data-jscolor="" value="3A3F56" id="input-card" />
+        </div>
+        <div class="texto">
+          <span>Cor do texto:</span>
+          <input data-jscolor="" value="FFFFFF" id="input-text" />
+        </div>
+        <!--<button id="shareButton">Compartilhar</button>-->
       </div>
     </div>
   </body>
 
-  <script src="./main.js"></script>
+  <script src="main.js"></script>
+  <script src="jscolor.js"></script>
+  <!--
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"
+    integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  ></script>
+  -->
 </html>

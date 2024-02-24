@@ -3,6 +3,51 @@ window.onload = function () {
   const user = "mateuslidonis";
   getGithubProfile(user);
 };
+const user = "mateuslidonis";
+/*
+shareButton.onclick = function () {
+  card.style.borderRadius = "0px";
+  html2canvas(card, { useCORS: true }).then(function (canvas) {
+    var img = canvas.toDataURL("image/png");
+    // Agora você tem uma imagem em formato Data URL que você pode compartilhar
+    // Por exemplo, você pode definir como a fonte de uma tag de imagem
+    var imageElement = document.createElement("img");
+    imageElement.src = img;
+    document.body.appendChild(imageElement);
+    card.style.borderRadius = "30px";
+    const wppURL =
+      "https://api.whatsapp.com/send?text=" + encodeURIComponent(img);
+    // Cria um elemento de link
+    window.open(wppURL);
+  });
+};
+*/
+
+// Primeiro, obtenha o elemento input e o elemento cuja borda você deseja alterar
+let inputProfile = document.querySelector("#input-profile");
+let inputCard = document.querySelector("#input-card");
+let inputText = document.querySelector("#input-text");
+
+inputProfile.addEventListener("input", function (e) {
+  let color = this.jscolor;
+  setTimeout(() => {
+    document.querySelector(".profile img").style.border = "5px solid " + color;
+  }, 0);
+});
+
+inputCard.addEventListener("input", function (e) {
+  let color = this.jscolor;
+  setTimeout(() => {
+    document.querySelector(".card").style.backgroundColor = color;
+  }, 0);
+});
+
+inputText.addEventListener("input", function (e) {
+  let color = this.jscolor;
+  setTimeout(() => {
+    document.querySelector(".card").style.color = color;
+  }, 0);
+});
 
 // Essa função busca na API do GitHub pelo usuário informado
 function getGithubProfile(user) {
@@ -14,9 +59,20 @@ function getGithubProfile(user) {
     .then((data) => {
       userLogin.innerHTML = `${data.name} (${data.login})`;
       userImage.src = data.avatar_url;
-      userFollowers.innerHTML = `${data.followers} Seguidores`;
+      if (data.followers > 1) {
+        userFollowers.innerHTML = `${data.followers} Seguidores`;
+      } else {
+        userFollowers.innerHTML = `${data.followers} Seguidor`;
+      }
+
       userFollowing.innerHTML = `${data.following} Seguindo`;
-      userRepositories.innerHTML = `${data.public_repos} Repositórios`;
+
+      if (data.public_repos > 1) {
+        userRepositories.innerHTML = `${data.public_repos} Repositórios`;
+      } else {
+        userRepositories.innerHTML = `${data.public_repos} Repositório`;
+      }
+
       userCompany.innerHTML = data.company ? data.company : "Não informado";
       userLocation.innerHTML = data.location ? data.location : "Não informado";
     });
@@ -29,4 +85,9 @@ function newCard() {
   } else {
     getGithubProfile(user);
   }
+}
+
+function randomColor() {
+  const color = "#" + Math.round(Math.random() * 0xffffff).toString(16);
+  document.querySelector(".profile img").style.border = "5px solid " + color;
 }
