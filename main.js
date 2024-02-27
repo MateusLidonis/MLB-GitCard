@@ -4,24 +4,22 @@ window.onload = function () {
   getGithubProfile(user);
 };
 const user = "mateuslidonis";
-/*
+let userData;
+
 shareButton.onclick = function () {
   card.style.borderRadius = "0px";
   html2canvas(card, { useCORS: true }).then(function (canvas) {
     var img = canvas.toDataURL("image/png");
-    // Agora você tem uma imagem em formato Data URL que você pode compartilhar
-    // Por exemplo, você pode definir como a fonte de uma tag de imagem
     var imageElement = document.createElement("img");
     imageElement.src = img;
     document.body.appendChild(imageElement);
     card.style.borderRadius = "30px";
-    const wppURL =
-      "https://api.whatsapp.com/send?text=" + encodeURIComponent(img);
-    // Cria um elemento de link
-    window.open(wppURL);
+    var link = document.createElement("a");
+    link.href = img;
+    link.download = "GitCard - " + `${userData.name}` + ".png";
+    link.click();
   });
 };
-*/
 
 // Primeiro, obtenha o elemento input e o elemento cuja borda você deseja alterar
 let inputProfile = document.querySelector("#input-profile");
@@ -57,6 +55,7 @@ function getGithubProfile(user) {
   fetch(profile)
     .then((response) => response.json())
     .then((data) => {
+      userData = data;
       userLogin.innerHTML = `${data.name} (${data.login})`;
       userImage.src = data.avatar_url;
       if (data.followers > 1) {
