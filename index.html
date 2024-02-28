@@ -74,7 +74,17 @@
           <span>Cor do texto:</span>
           <input data-jscolor="" value="FFFFFF" id="input-text" />
         </div>
-        <button id="shareButton">Compartilhar</button>
+        <div class="change_font">
+          <span>Alterar fonte:</span>
+          <select name="fonts" id="fonts" onchange="mudarFonte(this)">
+            <option value="poppins">Poppins</option>
+            <option value="arial">Arial</option>
+            <option value="matamata">Akinad</option>
+          </select>
+        </div>
+        <div class="button">
+          <button id="shareButton">Compartilhar</button>
+        </div>
       </div>
     </div>
   </body>

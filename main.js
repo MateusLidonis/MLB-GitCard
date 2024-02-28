@@ -90,3 +90,7 @@ function randomColor() {
   const color = "#" + Math.round(Math.random() * 0xffffff).toString(16);
   document.querySelector(".profile img").style.border = "5px solid " + color;
 }
+
+function mudarFonte(select) {
+  document.getElementById("card").style.fontFamily = select.value;
+}
