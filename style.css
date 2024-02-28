@@ -167,6 +167,14 @@ footer span {
   text-transform: uppercase;
 }
 
+.borda input,
+.fundo input,
+.texto input,
+.change_font select {
+  width: 100%;
+  border-radius: 20px;
+}
+
 .borda span,
 .fundo span,
 .texto span,
@@ -174,10 +182,18 @@ footer span {
   width: 100%;
 }
 
-.borda input,
-.fundo input,
-.texto input,
 .change_font select {
-  width: 100%;
-  border-radius: 20px;
+  width: 112%;
+}
+
+@media (max-width: 625px) {
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 100px;
+    width: 100vw;
+    height: 100vh;
+    flex-wrap: wrap;
+  }
 }

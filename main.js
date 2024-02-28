@@ -1,27 +1,27 @@
+// Variável que vou usar para mostrar meu Card no início
+const user = "mateuslidonis";
+
+// Ao iniciar a janela é mostrado o meu próprio usuário
 window.onload = function () {
-  // Ao iniciar a janela é mostrado o meu próprio usuário
-  const user = "mateuslidonis";
   getGithubProfile(user);
 };
-const user = "mateuslidonis";
-let userData;
 
+// Copia a imagem do Card para a área de transferência com as bordas retas da mesma cor do fundo
 shareButton.onclick = function () {
-  card.style.borderRadius = "0px";
-  html2canvas(card, { useCORS: true }).then(function (canvas) {
-    var img = canvas.toDataURL("image/png");
-    var imageElement = document.createElement("img");
-    imageElement.src = img;
-    document.body.appendChild(imageElement);
-    card.style.borderRadius = "30px";
-    var link = document.createElement("a");
-    link.href = img;
-    link.download = "GitCard - " + `${userData.name}` + ".png";
-    link.click();
-  });
+  var card = document.querySelector("#card");
+  var style = window.getComputedStyle(card);
+  var bgColor = style.getPropertyValue("background-color");
+  html2canvas(document.querySelector("#card"), {
+    useCORS: true,
+    backgroundColor: bgColor,
+  }).then((canvas) =>
+    canvas.toBlob((blob) =>
+      navigator.clipboard.write([new ClipboardItem({ "image/png": blob })])
+    )
+  );
 };
 
-// Primeiro, obtenha o elemento input e o elemento cuja borda você deseja alterar
+// Criação dos ColorPickers de Borda, Fundo e Texto
 let inputProfile = document.querySelector("#input-profile");
 let inputCard = document.querySelector("#input-card");
 let inputText = document.querySelector("#input-text");
@@ -55,7 +55,6 @@ function getGithubProfile(user) {
   fetch(profile)
     .then((response) => response.json())
     .then((data) => {
-      userData = data;
       userLogin.innerHTML = `${data.name} (${data.login})`;
       userImage.src = data.avatar_url;
       if (data.followers > 1) {
@@ -74,9 +73,22 @@ function getGithubProfile(user) {
 
       userCompany.innerHTML = data.company ? data.company : "Não informado";
       userLocation.innerHTML = data.location ? data.location : "Não informado";
+      getRepos();
     });
 }
 
+// Essa função busca na API do GitHub pelos 6 repositórios mais recentes do usuário informado
+function getRepos() {
+  fetch(
+    `https://api.github.com/users/${user}/repos?per_page=6&sort=created&direction=desc`
+  )
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+    });
+}
+
+// Essa função faz aparecer uma caixa de diálogo onde o usuário pode pesquisar por outros Cards
 function newCard() {
   const userInput = prompt("Digite seu usuário do Github:");
   if (userInput) {
@@ -86,11 +98,7 @@ function newCard() {
   }
 }
 
-function randomColor() {
-  const color = "#" + Math.round(Math.random() * 0xffffff).toString(16);
-  document.querySelector(".profile img").style.border = "5px solid " + color;
-}
-
+// Essa função permite a personalização da fonte
 function mudarFonte(select) {
   document.getElementById("card").style.fontFamily = select.value;
 }
