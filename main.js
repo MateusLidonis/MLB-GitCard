@@ -45,23 +45,40 @@ let inputText = document.querySelector("#input-text");
 
 inputProfile.addEventListener("input", function (e) {
   let color = this.jscolor;
-  setTimeout(() => {
-    document.querySelector("#userImage").style.border = "5px solid " + color;
-  }, 0);
+
+  document.querySelector("#userImage").style.border = "5px solid " + color;
+  let repoInfoElements = document.querySelectorAll(".repo-info");
+  repoInfoElements.forEach(function (element) {
+    element.style.border = "5px solid " + color;
+  });
 });
 
 inputCard.addEventListener("input", function (e) {
   let color = this.jscolor;
-  setTimeout(() => {
-    document.querySelector(".card").style.backgroundColor = color;
-  }, 0);
+  document.querySelector(".card").style.backgroundColor = color;
+  let repoInfoElements = document.querySelectorAll(".repo-info");
+  repoInfoElements.forEach(function (element) {
+    element.style.backgroundColor = color;
+
+    let originalColor = element.style.backgroundColor; // Armazena a cor original
+
+    element.addEventListener("mouseover", function () {
+      this.style.backgroundColor = darkerColor(originalColor, -50); // 50% mais escuro
+    });
+
+    element.addEventListener("mouseout", function () {
+      this.style.backgroundColor = originalColor; // Restaura a cor original
+    });
+  });
 });
 
 inputText.addEventListener("input", function (e) {
   let color = this.jscolor;
-  setTimeout(() => {
-    document.querySelector(".card").style.color = color;
-  }, 0);
+  document.querySelector(".card").style.color = color;
+  let repoInfoElements = document.querySelectorAll(".repo-info");
+  repoInfoElements.forEach(function (element) {
+    element.style.color = color;
+  });
 });
 
 // Essa função busca na API do GitHub pelo usuário informado
@@ -106,14 +123,28 @@ function getGithubProfile(user) {
 function getRepos() {
   const profile = `https://api.github.com/users/${userData.login}/repos?per_page=6&sort=created&direction=desc`;
 
+  // Limpa a div antes de adicionar novos repositórios
+  const reposContainer = document.getElementById("repos-container");
+  reposContainer.innerHTML = "";
+
   // Pega a resposta JSON
   fetch(profile, options)
     .then((response) => response.json())
     .then((data) => {
       data.forEach((repo) => {
         const repoElement = document.createElement("div");
-        repoElement.textContent = repo.name;
-        document.body.appendChild(repoElement);
+        repoElement.classList.add("repo-info");
+        repoElement.innerHTML = `
+          <h3>${repo.name}</h3>
+          <p>Principal Tecnologia: ${repo.language}</p>
+          <p>Pessoas Assistindo: ${repo.watchers_count}</p>
+          <p>Estrelas: ${repo.stargazers_count}</p>
+          <p>Forks: ${repo.forks_count}</p>
+        `;
+        repoElement.addEventListener("click", () => {
+          window.open(repo.html_url, "_blank");
+        });
+        reposContainer.appendChild(repoElement);
       });
     });
 }
@@ -130,8 +161,23 @@ function newCard() {
 }
 
 // Essa função permite a personalização da fonte
+
 function mudarFonte(select) {
   document.getElementById("card").style.fontFamily = select.value;
+}
+
+function darkerColor(color, percent) {
+  let [r, g, b] = color.match(/\d+/g).map(Number); // Extrai os valores RGB da string de cor
+
+  r = parseInt((r * (100 + percent)) / 100);
+  g = parseInt((g * (100 + percent)) / 100);
+  b = parseInt((b * (100 + percent)) / 100);
+
+  r = r < 255 ? r : 255;
+  g = g < 255 ? g : 255;
+  b = b < 255 ? b : 255;
+
+  return "rgb(" + r + "," + g + "," + b + ")";
 }
 
 // Função para criptografar um texto
@@ -156,7 +202,6 @@ function encrypt(text, shift) {
   }
   // Retorna o texto criptografado
   return result;
-  console.log(result);
 }
 // Função para descriptografar um texto
 function decrypt(text, shift) {
