@@ -189,19 +189,25 @@ footer span {
 }
 
 #repos-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
   padding-top: 30px;
-  column-count: 2;
-  column-gap: 20px;
   margin: 0 auto;
   width: 50%;
   color: white;
 }
 
 #repos-container div {
-  display: inline-block;
-  width: 100%;
+  width: calc(50% - 10px); /* Subtrai a metade do espaço entre as divs */
   box-sizing: border-box;
   text-align: center;
+}
+#repos-container div h3 {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
+  margin: 2px;
 }
 
 .repo-info {
