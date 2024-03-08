@@ -145,6 +145,19 @@ function getRepos() {
           window.open(repo.html_url, "_blank");
         });
         reposContainer.appendChild(repoElement);
+
+        // Defina a cor inicial
+        repoElement.style.backgroundColor = "#3A3F56";
+
+        let originalColor = repoElement.style.backgroundColor; // Armazena a cor original
+
+        repoElement.addEventListener("mouseover", function () {
+          this.style.backgroundColor = darkerColor(originalColor, -50); // 50% mais escuro
+        });
+
+        repoElement.addEventListener("mouseout", function () {
+          this.style.backgroundColor = originalColor; // Restaura a cor original
+        });
       });
     });
 }
